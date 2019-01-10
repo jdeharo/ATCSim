@@ -33,7 +33,7 @@
 
 #include <list>
 
-
+namespace atcsim{
 
 class Airport: public Singleton<Airport>, public ATCDisplay::AirportInterface
 {
@@ -59,6 +59,9 @@ public:
 	virtual float getSimT(const Ice::Current&);
 	virtual int getMaxFlights(const Ice::Current&);
 	virtual int getPoints(const Ice::Current&);
+
+  void book_landing() {any_landing_ = true;}
+  bool is_booked_landing() { return any_landing_;}
 
 
 private:
@@ -89,7 +92,12 @@ private:
 
     pthread_mutex_t mutex;
 
+	float acum_;
+
+  bool any_landing_;
 
 };
+
+};  // namespace atcsim
 
 #endif  // SIMULATOR_AIRPORT_H__
